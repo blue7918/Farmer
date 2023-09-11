@@ -18,35 +18,36 @@ import downArrow from '@assets/images/shop/downArrow1.svg';
 const Review = () => {
   const router = useRouter();
   const productId = Number(router.query?.detail) || 1;
+  const [reviewContent, setReviewContent] = useState([]);
+  const [reviewStar, setReviewStar] = useState({});
+  const [reviewTotalStar, setReviewTotalStar] = useState<number>(0);
   const [reviewStarArray, setReviewStarArray] = useState<number[]>([]);
+  const [totalElement, setTotalElement] = useState(0);
   const [sortOption, setSortOption] = useState('best');
+  const [totalIndex, setTotalIndex] = useState(1);
   const [currentIndex, setCurrentIndex] = useState<number>(1);
-  const [starGauge, setStarGauge] = useState();
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [reviewClick, setReviewClick] = useState<boolean>(false);
   const [starOption, setStarOption] = useState<number | null>(null);
   const [popStarOption, setPopStarOption] = useState<boolean>(false);
 
-  const { data: reviewData, refetch } = useQuery({
-    queryKey: ['reviewData', productId, currentIndex, sortOption, starOption],
-    queryFn: () =>
-      getReview({
-        productId,
-        currentIndex,
-        sortOption,
-        starOption,
-      }),
-    keepPreviousData: true,
-    retry: 0,
-  });
+  const handleReviewData = async () => {
+    const response = await getReview({
+      productId,
+      currentIndex,
+      sortOption,
+      starOption,
+    });
+    setReviewContent(response.content);
+    setTotalElement(response.totalElements);
+    setTotalIndex(response.totalPages);
+  };
 
-  const {
-    data: starData,
-    isLoading,
-    isError: isNoStar,
-  } = useQuery({
-    queryKey: ['reveiwStarData', productId],
-    queryFn: () => getReviewStar(productId),
-    onSuccess: response => {
+  const handleReviewStar = async () => {
+    try {
+      const response = await getReviewStar(productId);
+      setReviewStar(response);
+      setReviewTotalStar(response.averageStarRating);
       setReviewStarArray([
         response.fiveStar,
         response.fourStar,
@@ -54,97 +55,101 @@ const Review = () => {
         response.twoStar,
         response.oneStar,
       ]);
-    },
-    keepPreviousData: true,
-    retry: 0,
-  });
+    } catch (err) {
+      setErrorMessage(
+        err.response.data.message ==
+          '해당 상품에 대한 리뷰가 존재하지 않습니다.',
+      );
+    }
+  };
 
   useEffect(() => {
-    setTimeout(() => refetch(), 10);
+    handleReviewData();
+  }, [router, currentIndex, sortOption, starOption]);
+  useEffect(() => {
+    setTimeout(() => handleReviewData(), 10);
   }, [reviewClick]);
+  useEffect(() => {
+    setErrorMessage(false);
+    handleReviewStar();
+  }, [router]);
   useEffect(() => {
     setCurrentIndex(1);
   }, [starOption]);
-  useEffect(() => {
-    setStarGauge(isNoStar ? 0 : starData?.averageStarRating);
-  }, [isNoStar]);
 
-  if (isLoading) return;
-  else {
-    return (
-      <Styled.Wrapper>
-        <Styled.Title>
-          <div>리뷰</div>
-          <div>{reviewData.totalElements}</div>
-        </Styled.Title>
-        <Styled.OptionBox>
-          전체
-          <Styled.DownArrow />
-        </Styled.OptionBox>
-        <Styled.TotalLike>
-          <div>
-            <TotalStarGauge star={starGauge} />
-            <div>{starGauge}</div>
-          </div>
-          <VerticalLine height={100.5} />
-          <div>
-            {isNoStar ? (
-              <Styled.NoData>No Review</Styled.NoData>
-            ) : (
-              <EachStarGauge arr={reviewStarArray}></EachStarGauge>
-            )}
-          </div>
-        </Styled.TotalLike>
-        <Styled.ReviewTitle>
-          <div>
-            <Styled.BestSort
-              onClick={() => setSortOption('best')}
-              className="best"
-              sortOption={sortOption}
-            >
-              베스트순
-            </Styled.BestSort>
-            <Styled.RecentSort
-              onClick={() => setSortOption('recent')}
-              className="recent"
-              sortOption={sortOption}
-            >
-              최신순
-            </Styled.RecentSort>
-            <VerticalLine height={22} />
-            <Styled.PhotoReviewBtn>
-              <Styled.PhotoIcon />
-              <div>사진리뷰</div>
-            </Styled.PhotoReviewBtn>
-          </div>
-          <StarOption
-            setPopStarOption={setPopStarOption}
-            popStarOption={popStarOption}
-            setStarOption={setStarOption}
-            starOption={starOption}
-          />
-        </Styled.ReviewTitle>
-        {isNoStar ? (
-          <Styled.ErrorMessage>
-            해당 상품에 대한 리뷰가 존재하지 않습니다.
-          </Styled.ErrorMessage>
-        ) : (
-          <>
-            {reviewData.content?.map((item: SingleReviewProps, index) => (
-              <div onClick={() => setReviewClick(!reviewClick)} key={index}>
-                <SingleReview dataList={item} />
-              </div>
-            ))}
-          </>
-        )}
-        <Pagination
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-          totalIndex={reviewData.totalPages}
+  return (
+    <Styled.Wrapper>
+      <Styled.Title>
+        <div>리뷰</div>
+        <div>{totalElement}</div>
+      </Styled.Title>
+      <Styled.OptionBox>
+        전체
+        <Styled.DownArrow />
+      </Styled.OptionBox>
+      <Styled.TotalLike>
+        <div>
+          <TotalStarGauge star={reviewTotalStar} />
+          <div>{errorMessage ? 0 : reviewTotalStar}</div>
+        </div>
+        <VerticalLine height={100.5} />
+        <div>
+          {errorMessage ? (
+            <Styled.NoData>No Review</Styled.NoData>
+          ) : (
+            <EachStarGauge arr={reviewStarArray}></EachStarGauge>
+          )}
+        </div>
+      </Styled.TotalLike>
+      <Styled.ReviewTitle>
+        <div>
+          <Styled.BestSort
+            onClick={() => setSortOption('best')}
+            className="best"
+            sortOption={sortOption}
+          >
+            베스트순
+          </Styled.BestSort>
+          <Styled.RecentSort
+            onClick={() => setSortOption('recent')}
+            className="recent"
+            sortOption={sortOption}
+          >
+            최신순
+          </Styled.RecentSort>
+          <VerticalLine height={22} />
+          <Styled.PhotoReviewBtn>
+            <Styled.PhotoIcon />
+            <div>사진리뷰</div>
+          </Styled.PhotoReviewBtn>
+        </div>
+        <StarOption
+          setPopStarOption={setPopStarOption}
+          popStarOption={popStarOption}
+          setStarOption={setStarOption}
+          starOption={starOption}
         />
-      </Styled.Wrapper>
-    );
-  }
+      </Styled.ReviewTitle>
+      {errorMessage ? (
+        <Styled.ErrorMessage>
+          해당 상품에 대한 리뷰가 존재하지 않습니다.
+        </Styled.ErrorMessage>
+      ) : (
+        <>
+          {reviewContent?.map((item: SingleReviewProps, index) => (
+            <div onClick={() => setReviewClick(!reviewClick)} key={index}>
+              <SingleReview dataList={item} />
+            </div>
+          ))}
+        </>
+      )}
+      <Pagination
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        totalIndex={totalIndex}
+      />
+    </Styled.Wrapper>
+  );
 };
 
 const Styled = {
