@@ -18,7 +18,7 @@ const ContentWrapper = (props: OptionBoxProps) => {
         <SideAd left={-160} />
         <Styled.ExceptOption>
           <DetailImage />
-          <Review />
+          {/* <Review /> */}
           <QnA />
           <Notice />
         </Styled.ExceptOption>

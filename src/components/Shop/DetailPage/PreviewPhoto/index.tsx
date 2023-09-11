@@ -1,9 +1,9 @@
+import styled from '@emotion/styled';
+import theme from '@styles/theme';
+import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
-import styled from '@emotion/styled';
-import theme from '@styles/theme';
 import { getReviewImage } from 'src/apis/shop/review';
 import leftArrow from '@assets/images/shop/previewLeftArrow.svg';
 import rightArrow from '@assets/images/shop/previewRightArrow.svg';
