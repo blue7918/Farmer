@@ -19,7 +19,7 @@ const ContentWrapper = (props: OptionBoxProps) => {
         <Styled.ExceptOption>
           <DetailImage />
           <Review />
-          {/* <QnA /> */}
+          <QnA />
           <Notice />
         </Styled.ExceptOption>
         <OptionBox

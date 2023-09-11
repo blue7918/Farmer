@@ -1,9 +1,9 @@
+import styled from '@emotion/styled';
+import theme from '@styles/theme';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { setTimeout } from 'timers';
-import styled from '@emotion/styled';
-import theme from '@styles/theme';
 import { getReview, getReviewStar } from 'src/apis/shop/review';
 import { SingleReviewProps } from 'src/types/shop/types';
 import VerticalLine from '@components/Shop/Common/SmallParts/VerticalLine';

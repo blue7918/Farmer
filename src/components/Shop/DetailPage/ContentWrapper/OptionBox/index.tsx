@@ -54,19 +54,19 @@ const OptionBox = (props: OptionBoxProps) => {
       />
     );
   } else {
-    return (
-      <ContentOptionBox
-        isShowOptions={isShowOptions}
-        setShowOptions={setShowOptions}
-        setSelectList={setSelectList}
-        selectList={selectList}
-        options={options}
-        handleSelectList={handleSelectList}
-        handleResultPrice={handleResultPrice}
-        handleOrder={handleOrder}
-        handleCartData={handleCartData}
-      />
-    );
+    // return (
+    //   <ContentOptionBox
+    //     isShowOptions={isShowOptions}
+    //     setShowOptions={setShowOptions}
+    //     setSelectList={setSelectList}
+    //     selectList={selectList}
+    //     options={options}
+    //     handleSelectList={handleSelectList}
+    //     handleResultPrice={handleResultPrice}
+    //     handleOrder={handleOrder}
+    //     handleCartData={handleCartData}
+    //   />
+    // );
   }
 };
 
