@@ -9,6 +9,7 @@ import share from '@assets/images/shop/shareIcon.svg';
 
 const ProductInfo = (props: ProductInfoProps) => {
   const { productId, name, totalStar, starRating, discountRate, price } = props;
+  
 
   return (
     <>
