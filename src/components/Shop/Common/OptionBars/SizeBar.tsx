@@ -5,7 +5,7 @@ import { OptionBarProps } from 'src/types/shop/types';
 import { SortOption } from 'src/types/search/types';
 
 const SizeBar = (props: OptionBarProps) => {
-  const { optionList, setProductOption, productOption } = props;
+  const { optionList, width, setProductOption, productOption } = props;
   const router = useRouter();
   
   const handleClick = (productOption:string) => {
