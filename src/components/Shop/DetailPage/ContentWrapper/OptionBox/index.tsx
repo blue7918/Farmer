@@ -41,25 +41,11 @@ const OptionBox = (props: OptionBoxProps) => {
   }, [selectList]);
 
   if (isPanel) {
-    return (
-      <PanelOptionBox
-        isShowOptions={isShowOptions}
-        setShowOptions={setShowOptions}
-        lastOption={lastOption}
-        options={options}
-        handleSelectList={handleSelectList}
-        handleResultPrice={handleResultPrice}
-        handleOrder={handleOrder}
-        handleCartData={handleCartData}
-      />
-    );
-  } else {
     // return (
-    //   <ContentOptionBox
+    //   <PanelOptionBox
     //     isShowOptions={isShowOptions}
     //     setShowOptions={setShowOptions}
-    //     setSelectList={setSelectList}
-    //     selectList={selectList}
+    //     lastOption={lastOption}
     //     options={options}
     //     handleSelectList={handleSelectList}
     //     handleResultPrice={handleResultPrice}
@@ -67,6 +53,20 @@ const OptionBox = (props: OptionBoxProps) => {
     //     handleCartData={handleCartData}
     //   />
     // );
+  } else {
+    return (
+      <ContentOptionBox
+        isShowOptions={isShowOptions}
+        setShowOptions={setShowOptions}
+        setSelectList={setSelectList}
+        selectList={selectList}
+        options={options}
+        handleSelectList={handleSelectList}
+        handleResultPrice={handleResultPrice}
+        handleOrder={handleOrder}
+        handleCartData={handleCartData}
+      />
+    );
   }
 };
 
