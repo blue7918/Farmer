@@ -21,9 +21,7 @@ const Panel = (props: PanelProps) => {
 
   const router = useRouter();
   const productId = Number(router.query?.detail);
-  // const { totalStar, starRating} = usePanelStars(productId);
-  let totalStar = 0;
-  let starRating = 0;
+  const { totalStar, starRating} = usePanelStars(productId);
 
   if (totalStar && starRating) {
     return (
