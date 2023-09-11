@@ -41,18 +41,18 @@ const OptionBox = (props: OptionBoxProps) => {
   }, [selectList]);
 
   if (isPanel) {
-    // return (
-    //   <PanelOptionBox
-    //     isShowOptions={isShowOptions}
-    //     setShowOptions={setShowOptions}
-    //     lastOption={lastOption}
-    //     options={options}
-    //     handleSelectList={handleSelectList}
-    //     handleResultPrice={handleResultPrice}
-    //     handleOrder={handleOrder}
-    //     handleCartData={handleCartData}
-    //   />
-    // );
+    return (
+      <PanelOptionBox
+        isShowOptions={isShowOptions}
+        setShowOptions={setShowOptions}
+        lastOption={lastOption}
+        options={options}
+        handleSelectList={handleSelectList}
+        handleResultPrice={handleResultPrice}
+        handleOrder={handleOrder}
+        handleCartData={handleCartData}
+      />
+    );
   } else {
     return (
       <ContentOptionBox
