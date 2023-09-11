@@ -8,6 +8,7 @@ import OptionBox from '../ContentWrapper/OptionBox';
 import ProductInfo from './ProductInfo';
 import PayInfo from './PayInfo';
 
+
 const Panel = (props: PanelProps) => {
   const {
     productData,
@@ -20,7 +21,9 @@ const Panel = (props: PanelProps) => {
 
   const router = useRouter();
   const productId = Number(router.query?.detail);
-  const { totalStar, starRating} = usePanelStars(productId);
+  // const { totalStar, starRating} = usePanelStars(productId);
+  let totalStar = 0;
+  let starRating = 0;
 
   if (totalStar && starRating) {
     return (
