@@ -40,7 +40,7 @@ const CategoryPage: NextPageWithLayout = () => {
     setCurrentIndex(0);
   }, [productOption]);
 
-  if (isLoading) return;
+  if (isLoading) return<div></div>;
   return (
     <Styled.Wrapper>
       <Category />

@@ -14,7 +14,7 @@ const EventDetailPage: NextPageWithLayout = () => {
     queryFn: () => getEventProduct(),
   });
 
-  if (isLoading) return;
+  if (isLoading) return<div></div>;
   return (
     <Styled.Wrapper>
       <Category />

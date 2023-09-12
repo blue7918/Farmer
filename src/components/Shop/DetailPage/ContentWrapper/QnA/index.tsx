@@ -37,7 +37,7 @@ const Inquiry = () => {
     keepPreviousData: true,
   });
 
-  if (isLoading) return;
+  if (isLoading) return<div></div>;
   else {
     return (
       <Styled.Wrapper>

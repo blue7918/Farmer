@@ -26,7 +26,7 @@ const PreviewPhoto = () => {
       setCurrentIndex(nextIndex);
   };
 
-  if (isLoading) return;
+  if (isLoading) return<div></div>;
   return (
     <Styled.Wrapper>
       <Styled.Title>사진 리뷰 보기</Styled.Title>

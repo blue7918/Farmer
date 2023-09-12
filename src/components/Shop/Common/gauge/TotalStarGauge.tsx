@@ -35,7 +35,7 @@ const TotalStarGauge = (props: Props) => {
                 </svg>
               </span>,
             );
-          return array;
+          return {array};
         })()}
       </Styled.StarRateFill>
       <Styled.StarRateBase>

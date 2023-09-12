@@ -36,7 +36,7 @@ const BySizePage: NextPageWithLayout = () => {
     if (size) setSizeOption(size);
   }, [orderType, size]);
 
-  if (isLoading) return;
+  if (isLoading) return<div></div>;
   return (
     <Styled.Wrapper>
       <SizeBar
