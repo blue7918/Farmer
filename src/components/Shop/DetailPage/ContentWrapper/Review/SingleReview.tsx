@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import VerticalLine from '@components/Shop/Common/SmallParts/VerticalLine';
 import TotalStarGauge from '@components/Shop/Common/Gauge2/TotalStarGauge';
+//check
 import { postReviewLike } from 'src/apis/shop/review';
 import { SingleReviewProps } from 'src/types/shop/types';
 type Props = {
