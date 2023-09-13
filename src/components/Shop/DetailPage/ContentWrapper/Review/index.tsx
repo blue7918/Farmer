@@ -8,6 +8,7 @@ import { getReview, getReviewStar } from 'src/apis/shop/review';
 import { SingleReviewProps } from 'src/types/shop/types';
 import VerticalLine from '@components/Shop/Common/SmallParts/VerticalLine';
 import TotalStarGauge from '@components/Shop/Common/Gauge2/TotalStarGauge';
+//check
 import EachStarGauge from '@components/Shop/Common/Gauge2/EachStarGauge';
 import SingleReview from './SingleReview';
 import StarOption from './StarOption';
